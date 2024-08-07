@@ -2,6 +2,13 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Getting Started
 
+PARA PODER EJECUTARLO EN UN TELÉFONO FÍSICO COMO EMULADOR HACE FALTA:
+ - TENER EL TELFONO EN MODO DEPURACION POR USB
+ - TENER EL TELFONO CONECTADO A LA PC
+ - EN EL PC TENER INSTALADO ADB (SE COMPRUEBA PONIENDO EL COMANDO adb EN CMD)
+ - COMPROBAR QUE EL TELEFONO SALE EN LA LISTA DE DISPOSITIVOS (EN CMD INSERTAR EL COMANDO adb devices)
+ - EJECUTAR EL PROGRAMA (EN CMD SITUARSE EN EL DIRECTORIO DEL PROYECTO E INSERTAR npm run android) 
+
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
 ## Step 1: Start the Metro Server
