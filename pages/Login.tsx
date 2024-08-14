@@ -4,7 +4,7 @@ import CustomBox from '../components/CustomBox';
 import CustomText from '../components/CustomText';
 import {Button, ButtonSpinner} from '@gluestack-ui/themed';
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [name, setName] = useState('');
   const [clave, setClave] = useState('');
 
@@ -24,7 +24,7 @@ const Login = () => {
           style={styles.input}
           placeholder="Introduzca contraseña"
           value={clave}
-          onChangeText={clave => setClave(clave)}
+          onChangeText={texto => setClave(texto)}
           secureTextEntry
         />
       </CustomBox>
@@ -34,6 +34,13 @@ const Login = () => {
         <CustomBox>
           <ButtonSpinner />
           <CustomText style={styles.heading}>Presione</CustomText>
+        </CustomBox>
+      </Button>
+      <Button
+        title="ir_a_registro"
+        onPress={() => Alert.alert('Redirigiendo a registro')}>
+        <CustomBox>
+          <CustomText style={styles.heading}>Ir a registrarse</CustomText>
         </CustomBox>
       </Button>
     </View>

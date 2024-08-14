@@ -10,7 +10,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Inicio de sesión" component={SignUp} />
+        <Stack.Screen name="Inicio de sesión" component={Login} />
+        <Stack.Screen name="Registro de usuario" component={SignUp} />
       </Stack.Navigator>
     </NavigationContainer>
   );

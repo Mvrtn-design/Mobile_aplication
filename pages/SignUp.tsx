@@ -4,11 +4,15 @@ import CustomBox from '../components/CustomBox';
 import CustomText from '../components/CustomText';
 import {Button, ButtonSpinner} from '@gluestack-ui/themed';
 
-export default function SignUp() {
+const SignUp = ({navigation}) => {
   const [name, setName] = useState('');
   const [clave, setClave] = useState('');
   const [email, setEmail] = useState('');
   const [telefono, setTelefono] = useState('');
+
+  const goToLogin = () => {
+    navigation.navigate('Login', {name: 'Login'});
+  };
 
   return (
     <View style={styles.loginContainer}>
@@ -24,13 +28,13 @@ export default function SignUp() {
           style={styles.input}
           placeholder="correo electronico"
           value={email}
-          onChangeText={texto => setClave(texto)}
+          onChangeText={texto => setEmail(texto)}
         />
         <TextInput
           style={styles.input}
           placeholder="Introduzca numero de telefono"
           value={telefono}
-          onChangeText={text => setClave(text)}
+          onChangeText={text => setTelefono(text)}
         />
         <TextInput
           style={styles.input}
@@ -55,9 +59,7 @@ export default function SignUp() {
           <CustomText style={styles.heading}>Presione</CustomText>
         </CustomBox>
       </Button>
-      <Button
-        title="loginPointer"
-        onPress={() => Alert.alert('Redirigiendo al login')}>
+      <Button onPressIn={() => goToLogin()}>
         <CustomBox>
           <ButtonSpinner />
           <CustomText style={undefined}>Ir a iniciar Sesión</CustomText>
@@ -65,7 +67,7 @@ export default function SignUp() {
       </Button>
     </View>
   );
-}
+};
 
 const loginBox = {
   mainBox: {
@@ -100,3 +102,5 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
+export default SignUp;
