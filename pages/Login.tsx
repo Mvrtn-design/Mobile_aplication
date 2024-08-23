@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, TextInput, Alert} from 'react-native';
+import {View, StyleSheet, TextInput, Alert} from 'react-native';
 import React, {useState} from 'react';
 import CustomBox from '../components/CustomBox';
 import CustomText from '../components/CustomText';
@@ -7,6 +7,10 @@ import {Button, ButtonSpinner} from '@gluestack-ui/themed';
 const Login = ({navigation}) => {
   const [name, setName] = useState('');
   const [clave, setClave] = useState('');
+
+  const goToSignUp = () => {
+    navigation.navigate('Registro', {name: 'Registro de usuario'});
+  };
 
   return (
     <View style={styles.loginContainer}>
@@ -28,17 +32,13 @@ const Login = ({navigation}) => {
           secureTextEntry
         />
       </CustomBox>
-      <Button
-        title="submitButton"
-        onPress={() => Alert.alert('Login', 'Se ha presionado el botón')}>
+      <Button onPress={() => Alert.alert('Redirigiendo a registro')}>
         <CustomBox>
           <ButtonSpinner />
           <CustomText style={styles.heading}>Presione</CustomText>
         </CustomBox>
       </Button>
-      <Button
-        title="ir_a_registro"
-        onPress={() => Alert.alert('Redirigiendo a registro')}>
+      <Button onPress={() => goToSignUp()}>
         <CustomBox>
           <CustomText style={styles.heading}>Ir a registrarse</CustomText>
         </CustomBox>

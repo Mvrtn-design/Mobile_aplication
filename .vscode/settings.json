@@ -1,0 +1,6 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "prettier.singleQuote": true,
+    "prettier.endOfLine": "auto",
+    "java.configuration.updateBuildConfiguration": "interactive"
+}

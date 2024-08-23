@@ -1,4 +1,4 @@
-import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Alert, StyleSheet, TextInput, View} from 'react-native';
 import React, {useState} from 'react';
 import CustomBox from '../components/CustomBox';
 import CustomText from '../components/CustomText';
@@ -7,11 +7,12 @@ import {Button, ButtonSpinner} from '@gluestack-ui/themed';
 const SignUp = ({navigation}) => {
   const [name, setName] = useState('');
   const [clave, setClave] = useState('');
+  const [claveRepetida, setClaveRepetida] = useState('');
   const [email, setEmail] = useState('');
   const [telefono, setTelefono] = useState('');
 
   const goToLogin = () => {
-    navigation.navigate('Login', {name: 'Login'});
+    navigation.navigate('Inicio', {name: 'Login'});
   };
 
   return (
@@ -40,20 +41,20 @@ const SignUp = ({navigation}) => {
           style={styles.input}
           placeholder="Introduzca una nueva contraseña"
           value={clave}
-          onChangeText={clave => setClave(clave)}
+          onChangeText={clave_temp => setClave(clave_temp)}
           secureTextEntry
         />
         <TextInput
           style={styles.input}
           placeholder="Repita su contraseña"
-          value={clave}
-          onChangeText={clave => setClave(clave)}
+          value={claveRepetida}
+          onChangeText={claveRepetida_temp =>
+            setClaveRepetida(claveRepetida_temp)
+          }
           secureTextEntry
         />
       </CustomBox>
-      <Button
-        title="submitButton"
-        onPress={() => Alert.alert('Login', 'Se ha presionado el botón')}>
+      <Button onPress={() => Alert.alert('Login', 'Se ha presionado el botón')}>
         <CustomBox>
           <ButtonSpinner />
           <CustomText style={styles.heading}>Presione</CustomText>
