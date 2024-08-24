@@ -1,47 +1,55 @@
-/* eslint-disable react-native/no-inline-styles */
 import {
-  StyleSheet,
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 import {useState} from 'react';
 import * as React from 'react';
 import {IconButton} from 'react-native-paper';
 import {FlatList} from '@gluestack-ui/themed';
 
-const To_do = () => {
+const ToDo = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [editando, setEditando] = useState('');
   const [nombreTarea, setNombreTarea] = useState('');
   const [datos, setDatos] = useState([
     {
       id: '1',
-      task: 'Take some breakfast',
+      task: 'planificar tareas para añadir',
     },
     {
       id: '2',
-      task: 'Take some lunch',
-    },
-    {
-      id: '3',
-      task: 'Take some dinner',
-    },
-    {
-      id: '4',
-      task: 'Take some snack',
-    },
-    {
-      id: '5',
-      task: 'Take some dessert',
-    },
-    {
-      id: '6',
-      task: 'Take some drink',
+      task: 'hacer los ejercicios diarios',
     },
   ]);
+  const [editingId, setEditingId] = useState(null);
+
+  const introducirTarea = () => {
+    setDatos([...datos, {id: Date.now().toString(), task: nombreTarea}]);
+    setNombreTarea('');
+  };
+
+  const eliminarTarea = idd => {
+    setDatos(datos.filter(item => item.id !== idd));
+  };
+
+  const editarTarea = () => {
+    if (editingId) {
+      setDatos(
+        datos.map(item =>
+          item.id === editingId ? {id: editingId, task: editando} : item,
+        ),
+      );
+      setEditingId(null);
+      setOpenEdit(false);
+    }
+  };
+
+  const openTaskEditor = idd => {
+    setEditingId(idd);
+    setOpenEdit(true);
+  };
 
   const renderer = ({item, index}) => {
     return (
@@ -56,14 +64,20 @@ const To_do = () => {
           <Text style={{fontSize: 15, color: 'white', padding: 7, flex: 1}}>
             {item.task}
           </Text>
-          <IconButton icon="pencil" iconColor="white" />
+          <IconButton
+            icon="pencil"
+            iconColor="white"
+            onPress={() => {
+              openTaskEditor(item.id);
+            }}
+          />
           <IconButton
             icon="trash-can"
             iconColor="red"
-            onPress={() => eliminarTarea(item)}
+            onPress={() => eliminarTarea(item.id)}
           />
         </View>
-        {openEdit === true ? (
+        {openEdit && item.id === editingId ? (
           <View>
             <TextInput
               value={editando}
@@ -77,26 +91,10 @@ const To_do = () => {
               }}
               placeholder="Edite la tarea"
             />
-            <IconButton
-              icon="camera"
-              iconColor="red"
-              onPress={() => editarTarea(item.id)}
-            />
+            <IconButton icon="camera" iconColor="red" onPress={editarTarea} />
           </View>
         ) : null}
       </View>
-    );
-  };
-  const introducirTarea = () => {
-    setDatos([...datos, {id: Date.now().toString(), task: nombreTarea}]);
-    setNombreTarea('');
-  };
-  const eliminarTarea = idd => {
-    setDatos(datos.filter(item => item.id !== idd));
-  };
-  const editarTarea = myID => {
-    setDatos(
-      datos.map(item => (item.id === myID ? {id: myID, task: editando} : myID)),
     );
   };
 
@@ -129,9 +127,13 @@ const To_do = () => {
           Añadir
         </Text>
       </TouchableOpacity>
-      <FlatList data={datos} renderItem={renderer} />
+      <FlatList
+        data={datos}
+        renderItem={renderer}
+        keyExtractor={item => item.id}
+      />
     </View>
   );
 };
 
-export default To_do;
+export default ToDo;

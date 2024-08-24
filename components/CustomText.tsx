@@ -11,8 +11,13 @@ const CustomText = ({style, children, ...props}) => {
 
 const styles = StyleSheet.create({
   text: {
-    color: 'blue',
+    color: 'white',
     fontFamily: 'Helvetica',
+    alignContent: 'center',
+    textAlignVertical: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    alignSelf: 'center',
   },
 });
 

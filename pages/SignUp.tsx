@@ -1,51 +1,96 @@
-import {Alert, StyleSheet, TextInput, View} from 'react-native';
+import {
+  Alert,
+  StyleSheet,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState} from 'react';
 import CustomBox from '../components/CustomBox';
 import CustomText from '../components/CustomText';
-import {Button, ButtonSpinner} from '@gluestack-ui/themed';
+import CustomInputBox from '../components/CustomInputBox';
+import CustomTouchable from '../components/CustomTouchable';
 
 const SignUp = ({navigation}) => {
-  const [name, setName] = useState('');
-  const [clave, setClave] = useState('');
+  const [datosUsuario, setDatosUsuario] = useState({
+    nombre_usuario: '',
+    age: 0,
+    email: '',
+    clave: '',
+  });
   const [claveRepetida, setClaveRepetida] = useState('');
-  const [email, setEmail] = useState('');
-  const [telefono, setTelefono] = useState('');
 
   const goToLogin = () => {
     navigation.navigate('Inicio', {name: 'Login'});
   };
+  const goToPersonList = () => {
+    navigation.navigate('ListaPersonas', {name: 'PersonList'});
+  };
+  const cleanData = () => {
+    setDatosUsuario({nombre_usuario: '', age: 0, email: '', clave: ''});
+    setClaveRepetida('');
+  };
+
+  const handleSignUp = () => {
+    if (!checkingValues()) {
+      Alert.alert('Error rellenando los datos');
+    } else if (datosUsuario.clave !== claveRepetida) {
+      Alert.alert('Error en la coincidencia de las contraseñas');
+    } else {
+      console.log(datosUsuario);
+      Alert.alert(`ok: ${datosUsuario.nombre_usuario}`);
+      cleanData();
+    }
+  };
+
+  function checkingValues() {
+    return (
+      datosUsuario.nombre_usuario !== '' &&
+      datosUsuario.age > 0 &&
+      datosUsuario.age < 200 &&
+      datosUsuario.clave !== '' &&
+      datosUsuario.email !== ''
+    );
+  }
 
   return (
-    <View style={styles.loginContainer}>
-      <CustomBox style={loginBox}>
+    <ScrollView>
+      <CustomBox>
         <CustomText style={styles.heading}>Sección para registrarse</CustomText>
-        <TextInput
-          style={styles.input}
+        <CustomInputBox
+          label="nombre usuario"
           placeholder="Introduzca un nombre"
-          value={name}
-          onChangeText={text => setName(text)}
+          value={datosUsuario.nombre_usuario}
+          onChangeText={textt =>
+            setDatosUsuario({...datosUsuario, nombre_usuario: textt})
+          }
         />
-        <TextInput
-          style={styles.input}
+        <CustomInputBox
+          label="email"
           placeholder="correo electronico"
-          value={email}
-          onChangeText={texto => setEmail(texto)}
+          value={datosUsuario.email}
+          onChangeText={textt =>
+            setDatosUsuario({...datosUsuario, email: textt})
+          }
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Introduzca numero de telefono"
-          value={telefono}
-          onChangeText={text => setTelefono(text)}
+        <CustomInputBox
+          label="edad"
+          placeholder="Introduzca edad"
+          value={datosUsuario.age}
+          keyboardType="numeric"
+          onChangeText={text =>
+            setDatosUsuario({...datosUsuario, age: parseInt(text, 10)})
+          }
         />
-        <TextInput
-          style={styles.input}
+        <CustomInputBox
+          label="contraseña"
           placeholder="Introduzca una nueva contraseña"
-          value={clave}
-          onChangeText={clave_temp => setClave(clave_temp)}
+          value={datosUsuario.clave}
+          onChangeText={text => setDatosUsuario({...datosUsuario, clave: text})}
           secureTextEntry
         />
-        <TextInput
-          style={styles.input}
+        <CustomInputBox
+          label="repeticion de contraseña"
           placeholder="Repita su contraseña"
           value={claveRepetida}
           onChangeText={claveRepetida_temp =>
@@ -54,53 +99,44 @@ const SignUp = ({navigation}) => {
           secureTextEntry
         />
       </CustomBox>
-      <Button onPress={() => Alert.alert('Login', 'Se ha presionado el botón')}>
-        <CustomBox>
-          <ButtonSpinner />
-          <CustomText style={styles.heading}>Presione</CustomText>
-        </CustomBox>
-      </Button>
-      <Button onPressIn={() => goToLogin()}>
-        <CustomBox>
-          <ButtonSpinner />
-          <CustomText style={undefined}>Ir a iniciar Sesión</CustomText>
-        </CustomBox>
-      </Button>
-    </View>
-  );
-};
 
-const loginBox = {
-  mainBox: {
-    backgroundColor: '#ffff',
-    borderColor: 'green',
-    padding: 60,
-  },
-  shadowBox: {
-    backgroundColor: 'gray',
-  },
+      <CustomTouchable
+        onPress={() => {
+          handleSignUp();
+        }}
+        style={{backgroundColor: 'darkgreen'}}>
+        Registrar
+      </CustomTouchable>
+      <CustomTouchable
+        onPress={() => {
+          cleanData();
+        }}
+        style={{color: 'darkred'}}>
+        Borrar Campos
+      </CustomTouchable>
+      <CustomTouchable
+        onPress={() => {
+          goToLogin();
+        }}>
+        Ir a inicio de sesión
+      </CustomTouchable>
+      <CustomTouchable
+        onPress={() => {
+          goToPersonList();
+        }}>
+        Ver listado de personas
+      </CustomTouchable>
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({
   heading: {
+    textAlign: 'center',
     fontSize: 30,
     fontWeight: 'bold',
-    color: 'green',
+    color: 'darkblue',
     marginBottom: 10,
-  },
-  input: {
-    backgroundColor: 'gray',
-    margin: 10,
-    color: 'lightblue',
-    fontWeight: 'bold',
-    borderRadius: 10,
-    padding: 10,
-  },
-  loginContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
   },
 });
 

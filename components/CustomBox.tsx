@@ -17,7 +17,8 @@ export default CustomBox;
 
 const styles = StyleSheet.create({
   headingContainer: {
-    margin: 5,
+    marginHorizontal: 30,
+    marginVertical: 10,
     flexDirection: 'row',
     padding: 20,
     position: 'relative',
