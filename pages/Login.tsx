@@ -14,19 +14,20 @@ const Login = ({navigation}) => {
 
   return (
     <View style={styles.loginContainer}>
+      <Button>SALIR</Button>
       <CustomBox style={loginBox}>
         <CustomText style={styles.heading}>
           Sección para inciar sesión
         </CustomText>
         <TextInput
           style={styles.input}
-          placeholder="Introduzca nombre"
+          placeholder="Introduzca nombre de usuario"
           value={name}
           onChangeText={text => setName(text)}
         />
         <TextInput
           style={styles.input}
-          placeholder="Introduzca contraseña"
+          placeholder="Introduzca su contraseña"
           value={clave}
           onChangeText={texto => setClave(texto)}
           secureTextEntry
@@ -35,7 +36,7 @@ const Login = ({navigation}) => {
       <Button onPress={() => Alert.alert('Redirigiendo a registro')}>
         <CustomBox>
           <ButtonSpinner />
-          <CustomText style={styles.heading}>Presione</CustomText>
+          <CustomText style={styles.heading}>INICIAR SESIÓN</CustomText>
         </CustomBox>
       </Button>
       <Button onPress={() => goToSignUp()}>

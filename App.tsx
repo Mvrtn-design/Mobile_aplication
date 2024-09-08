@@ -6,6 +6,7 @@ import SignUp from './pages/SignUp';
 import To_do from './pages/To_do';
 import Main from './pages/Main';
 import PersonList from './pages/PersonList';
+import Principal_page from './pages/Principal_page';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -13,9 +14,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="PaginaPrincipal" component={Principal_page} />
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Todo" component={To_do} />
-        <Stack.Screen name="Inicio" component={Login} />
+        <Stack.Screen name="InicioSesion" component={Login} />
         <Stack.Screen name="Registro" component={SignUp} />
         <Stack.Screen name="ListaPersonas" component={PersonList} />
       </Stack.Navigator>

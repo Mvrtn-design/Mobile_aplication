@@ -1,10 +1,4 @@
-import {
-  Alert,
-  StyleSheet,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {Alert, StyleSheet, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import CustomBox from '../components/CustomBox';
 import CustomText from '../components/CustomText';
